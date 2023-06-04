@@ -134,7 +134,8 @@ for key in param.keys():
 
     gmro2 = -1*metric_to_float(key.split('S')[0])*R_out2
 
-    print(f'{key} Gain (eqn. 1) = {gain1}V/V, {db(gain1)}dB')
-    print(f'{key} Gain (eqn. 2) = {gain2}V/V, {db(gain2)}dB')
-    print(f'{key} Rout (eqn. 1) = {R_out1}Ohms\n\tAv = -GmRout = {gmro1}V/V, {db(gmro1)}dB')
-    print(f'{key} Rout (eqn. 2) = {R_out2}Ohms\n\tAv = -GmRout = {gmro2}V/V, {db(gmro2)}dB\n')
+    print(f'{key}:')
+    print(f'\tGain (eqn. 1) = {gain1}V/V,\t{db(gain1)}dB')
+    print(f'\tGain (eqn. 2) = {gain2}V/V,\t{db(gain2)}dB')
+    print(f'\tRout (eqn. 1) = {R_out1}Ohms,\t-GmRout = {gmro1}V/V,\t{db(gmro1)}dB')
+    print(f'\tRout (eqn. 2) = {R_out2}Ohms,\t-GmRout = {gmro2}V/V,\t{db(gmro2)}dB\n')
