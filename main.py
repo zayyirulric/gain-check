@@ -67,52 +67,74 @@ for key in param.keys():
     r_y = ((r_m**(-1)) + (r_bp**(-1)))**(-1)
     r_y = r_x
 
-    num1 = (g_1+g_n+g_m)/(g_1+g_n+g_m+(1/r_1)+(1/r_y)+(1/r_n))
-    num2 = (g_1+g_n)/(g_1+g_n+(1/r_1)+(1/r_n))
-    den1 = ((1/r_bn)+(1/r_n)+(1/r_1))/(g_1+g_n+(1/r_n)+(1/r_1))
-    den2 = ((1/r_n)+(1/r_1)+(1/r_y))/(g_1+g_n+g_m+(1/r_1)+(1/r_n)+(1/r_y))
-    num = (num1-num2)
-    den = den1-den2
+    n1_1 = (g_1+g_n+g_m)/(g_1+g_n+g_m+(1/r_1)+(1/r_y)+(1/r_n))
+    n1_2 = (g_1+g_n)/(g_1+g_n+(1/r_1)+(1/r_n))
+    d1_1 = ((1/r_bn)+(1/r_n)+(1/r_1))/(g_1+g_n+(1/r_n)+(1/r_1))
+    d1_2 = ((1/r_n)+(1/r_1)+(1/r_y))/(g_1+g_n+g_m+(1/r_1)+(1/r_n)+(1/r_y))
+    num1 = (n1_1-n1_2)
+    den1 = d1_1-d1_2
 
-    gain = num/den
+    gain1 = num1/den1
 
     #################################### 
     # gain eq 2 test
     r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
     r_y = ((r_mr**(-1)) + (r_bp**(-1)))**(-1)
 
-    n_1 = -((g_n/2)*(-g_n-(1/r_n)))/(g_n+(1/r_y)+(1/r_n))
-    n_2 = -((g_1/2)*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
-    n_3 = -((g_m/2)*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
-    n_4 = g_1/2
-    n_5 = -g_n/2
+    n2_1 = -((g_n/2)*(-g_n-(1/r_n)))/(g_n+(1/r_y)+(1/r_n))
+    n2_2 = -((g_1/2)*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
+    n2_3 = -((g_m/2)*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
+    n2_4 = g_1/2
+    n2_5 = -g_n/2
 
-    d_1 = ((1/(2*r_n))*(-g_n-(1/r_n)))/(g_n+(1/r_y)+(1/r_n))
-    d_2 = -((1/(2*r_1))*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
-    d_3 = 1/(2*r_bn)
-    d_4 = 1/(2*r_n)
-    d_5 = 1/(2*r_1)
+    d2_1 = ((1/(2*r_n))*(-g_n-(1/r_n)))/(g_n+(1/r_y)+(1/r_n))
+    d2_2 = -((1/(2*r_1))*(g_1+(1/r_1)))/(g_1+g_m+(1/r_x)+(1/r_1))
+    d2_3 = 1/(2*r_bn)
+    d2_4 = 1/(2*r_n)
+    d2_5 = 1/(2*r_1)
 
-    alt_num = n_1+n_2+n_3+n_4+n_5
-    alt_den = d_1+d_2+d_3+d_4+d_5
+    num2 = n2_1+n2_2+n2_3+n2_4+n2_5
+    den2 = d2_1+d2_2+d2_3+d2_4+d2_5
 
-    alt_gain = alt_num/alt_den
+    gain2 = num2/den2
 
     #################################### 
     # rout eq 1 test
     r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
     r_y = ((r_mr**(-1)) + (r_bp**(-1)))**(-1)
 
-    big_den_1 = ((1/r_1)/(g_1+g_m+(1/r_1)+(1/r_x)))*(g_1+(1/r_1))
-    big_den_2 = ((1/r_n)/(g_n+(1/r_n)+(1/r_y)))*(g_n+(1/r_n))
+    d3_1 = ((1/r_1)/(g_1+g_m+(1/r_1)+(1/r_x)))*(g_1+(1/r_1))
+    d3_2 = ((1/r_n)/(g_n+(1/r_n)+(1/r_y)))*(g_n+(1/r_n))
     
-    big_den = (1/r_1) + (1/r_n) + (1/r_bn) - big_den_1 - big_den_2
+    den3 = (1/r_1) + (1/r_n) + (1/r_bn) - d3_1 - d3_2
 
-    R_out = 1/big_den
+    R_out1 = 1/den3
 
-    gmro = -1*metric_to_float(key.split('S')[0])*R_out
+    gmro1 = -1*metric_to_float(key.split('S')[0])*R_out1
 
-    print(f'{key} Gain (eqn. 1) = {gain}V/V, {db(gain)}dB')
-    print(f'{key} Gain (eqn. 2) = {alt_gain}V/V, {db(alt_gain)}dB')
-    print(f'{key} d1 {big_den_1}\n{key} d2 {big_den_2}')
-    print(f'{key} Rout = {R_out}Ohms\n\tAv = -GmRout = {gmro}V/V, {db(gmro)}dB\n')
+    #################################### 
+    # rout eq 1 test
+    r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
+    r_y = ((r_mr**(-1)) + (r_bp**(-1)))**(-1)
+
+    n4_1 = r_bn*r_1*r_n
+    n4_2 = (g_1*r_1*r_x)+(g_m*r_1*r_x)+r_1+r_x
+    n4_3 = (g_n*r_n*r_y)+r_n+r_y
+
+    d4_1 = ((g_1*r_1*r_x)+(g_m*r_1*r_x)+r_1+r_x)*((g_n*r_n*r_y)+r_n+r_y)*((r_n*r_bn)+(r_1*r_bn)+(r_1*r_n))
+    d4_2 = r_bn
+    d4_3 = (r_n*r_x)*((g_1*r_1)+1)*((g_n*r_n*r_y)+r_n+r_y)
+    d4_4 = (r_1*r_y)*((g_n*r_n)+1)*((g_1*r_1*r_x)+(g_m*r_1*r_x)+r_1+r_x)
+    d4_5 = (-d4_3-d4_4)
+
+    num4 = n4_1*n4_2*n4_3
+    den4 = d4_1+(d4_2*d4_5)
+
+    R_out2 = num4/den4
+
+    gmro2 = -1*metric_to_float(key.split('S')[0])*R_out2
+
+    print(f'{key} Gain (eqn. 1) = {gain1}V/V, {db(gain1)}dB')
+    print(f'{key} Gain (eqn. 2) = {gain2}V/V, {db(gain2)}dB')
+    print(f'{key} Rout (eqn. 1) = {R_out1}Ohms\n\tAv = -GmRout = {gmro1}V/V, {db(gmro1)}dB')
+    print(f'{key} Rout (eqn. 2) = {R_out2}Ohms\n\tAv = -GmRout = {gmro2}V/V, {db(gmro2)}dB\n')
