@@ -62,7 +62,7 @@ for key in param.keys():
     r_mr = param[key]["r_mr"]
 
     ####################################
-    # eq 1 test
+    # gain eq 1 test
     r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
     r_y = ((r_m**(-1)) + (r_bp**(-1)))**(-1)
     r_y = r_x
@@ -77,7 +77,7 @@ for key in param.keys():
     gain = num/den
 
     #################################### 
-    # eq 2 test
+    # gain eq 2 test
     r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
     r_y = ((r_mr**(-1)) + (r_bp**(-1)))**(-1)
 
@@ -98,5 +98,21 @@ for key in param.keys():
 
     alt_gain = alt_num/alt_den
 
+    #################################### 
+    # rout eq 1 test
+    r_x = ((r_bp**(-1)) + (r_m**(-1)) + (r_mr**(-1)))**(-1)
+    r_y = ((r_mr**(-1)) + (r_bp**(-1)))**(-1)
+
+    big_den_1 = ((1/r_1)/(g_1+g_m+(1/r_1)+(1/r_x)))*(g_1+(1/r_1))
+    big_den_2 = ((1/r_n)/(g_n+(1/r_n)+(1/r_y)))*(g_n+(1/r_n))
+    
+    big_den = (1/r_1) + (1/r_n) + (1/r_bn) - big_den_1 - big_den_2
+
+    R_out = 1/big_den
+
+    gmro = -1*metric_to_float(key.split('S')[0])*R_out
+
     print(f'{key} Gain (eqn. 1) = {gain}V/V, {db(gain)}dB')
-    print(f'{key} Gain (eqn. 2) = {alt_gain}V/V, {db(alt_gain)}dB\n')
+    print(f'{key} Gain (eqn. 2) = {alt_gain}V/V, {db(alt_gain)}dB')
+    print(f'{key} d1 {big_den_1}\n{key} d2 {big_den_2}')
+    print(f'{key} Rout = {R_out}Ohms\n\tAv = -GmRout = {gmro}V/V, {db(gmro)}dB\n')
